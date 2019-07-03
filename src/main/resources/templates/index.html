@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo</title>
+</head>
+<body>
+<h1>Add task to do:</h1>
+
+<form action="#" method="post" th:action="@{/save}" th:object="${task}">
+    <p>Task subject: <input type="text" th:field="*{taskSubject}"></p>
+    <p>Task details: <input type="text" th:field="*{taskDetails}"></p>
+    <p>Task deadline: <input type="date" th:field="*{taskDeadline}"></p>
+    <input type="submit" value="Save">
+</form>
+<br><br>
+<div th:if="not ${allTasks.isEmpty()}">
+    <h1>All added tasks:</h1>
+    <table border="1">
+        <tr style="background-color: greenyellow">
+            <th>Subject</th>
+            <th>Content</th>
+            <th>Create time</th>
+            <th>Deadline</th>
+        </tr>
+        <tr th:each="singleTask: ${allTasks}" th:object="${singleTask}">
+            <td th:text="*{taskSubject}"></td>
+            <td th:text="*{taskDetails}"></td>
+            <td th:text="*{taskCreateTime}"></td>
+            <td th:text="*{taskDeadline}"></td>
+        </tr>
+    </table>
+</div>
+<div th:if="${allTasks.isEmpty()}">
+    <h1>There is no data yet :(</h1>
+</div>
+
+
+</body>
+</html>
