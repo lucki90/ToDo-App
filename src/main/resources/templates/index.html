@@ -29,6 +29,11 @@
             <td th:text="*{taskDetails}"></td>
             <td th:text="*{taskCreateTime}"></td>
             <td th:text="*{taskDeadline}"></td>
+            <td>
+                <form action="#" method="post" th:action="@{/delete/{id}(id=${singleTask.getId()})}">
+                    <input type="submit" value="Delete" >
+                </form>
+            </td>
         </tr>
     </table>
 </div>
