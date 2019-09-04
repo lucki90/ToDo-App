@@ -4,15 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <title>ToDo</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
 </head>
 <body>
 <h1>Add task to do:</h1>
 
 <form action="#" method="post" th:action="@{/save}" th:object="${task}">
-    <p>Task subject: <input type="text" th:field="*{taskSubject}"></p>
-    <p>Task details: <input type="text" th:field="*{taskDetails}"></p>
+    <div style="width: 500px">
+        <p><input type="text" class="form-control" placeholder="Task Subject" th:field="*{taskSubject}"></p>
+    </div>
+    <div style="width: 500px">
+        <p><input type="text" class="form-control" placeholder="Task details" th:field="*{taskDetails}"></p>
+    </div>
     <p>Task deadline: <input type="date" th:field="*{taskDeadline}"></p>
-    <input type="submit" value="Save">
+    <input type="submit" class="btn btn-success" value="Save">
 </form>
 <br><br>
 <div th:if="not ${allTasks.isEmpty()}">
@@ -31,7 +37,7 @@
             <td th:text="*{taskDeadline}"></td>
             <td>
                 <form action="#" method="post" th:action="@{/delete/{id}(id=${singleTask.getId()})}">
-                    <input type="submit" value="Delete" >
+                    <input type="submit" value="Delete">
                 </form>
             </td>
         </tr>
