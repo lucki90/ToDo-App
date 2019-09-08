@@ -7,21 +7,34 @@
     <!-- Bootstrap core CSS -->
     <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
-    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso12.css" />
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso12.css"/>
 
     <!--Font Awesome (added because you use icons in your prepend/append)-->
-    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css"/>
 
     <!-- Inline CSS based on choices in "Settings" tab -->
-    <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
+    <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form {
+        font-family: Arial, Helvetica, sans-serif;
+        color: black
+    }
+
+    .bootstrap-iso form button, .bootstrap-iso form button:hover {
+        color: white !important;
+    }
+
+    .asteriskField {
+        color: red;
+    }</style>
 
 </head>
 <body>
 <h1>Add task to do:</h1>
+<!-- POCZĄTEK FORMULARZ DODAWANIA ZADANIA -->
 
-<form action="#" method="post" th:action="@{/save}" th:object="${task}">
+<form action="#" method="post" th:action="@{/}" th:object="${task}">
     <div style="width: 500px">
-        <p><input type="text" class="form-control" placeholder="Task Subject" th:field="*{taskSubject}"></p>
+        <p th:errors="*{taskSubject}">First name errors</p>
+        <input type="text" th:field="*{taskSubject}" placeholder="First Name" />
     </div>
     <div style="width: 500px">
         <p><input type="text" class="form-control" placeholder="Task details" th:field="*{taskDetails}"></p>
@@ -29,7 +42,6 @@
     <div style="width: 200px">
         <p>Task deadline: <input type="date" class="input-group date" th:field="*{taskDeadline}"></p>
     </div>
-
 
     <input type="submit" class="btn btn-success" value="Save">
 </form>

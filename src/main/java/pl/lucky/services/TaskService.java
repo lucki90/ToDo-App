@@ -24,19 +24,9 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public void save(Task task) {
-        try {
-            validator.validate(task);
-            taskRepository.save(task);
-        } catch (ConstraintViolationException e) {
-            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-            for (ConstraintViolation<?> violation : violations) {
-                System.out.printf("%s - %s(%s)\n",
-                        violation.getPropertyPath(),
-                        violation.getInvalidValue(),
-                        violation.getMessage());
-            }
-        }
+    public void save(Task task) throws ConstraintViolationException {
+        validator.validate(task);
+        taskRepository.save(task);
     }
 
     public List<Task> findAll() {

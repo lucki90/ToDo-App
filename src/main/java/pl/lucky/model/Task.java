@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,8 +23,7 @@ public class Task {
     private Long id;
 
     @Column(name = "task_subject")
-    @NotNull
-    @NotBlank
+    @NotEmpty(message = "Subject can not be empty")
     private String taskSubject;
 
     @Column(name = "task_details")
