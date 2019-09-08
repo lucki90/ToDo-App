@@ -1,4 +1,4 @@
-package pl.lucky.data;
+package pl.lucky.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import pl.lucky.model.Task;

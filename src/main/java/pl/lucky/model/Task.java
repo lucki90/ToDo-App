@@ -6,6 +6,9 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -20,6 +23,8 @@ public class Task {
     private Long id;
 
     @Column(name = "task_subject")
+    @NotNull
+    @NotBlank
     private String taskSubject;
 
     @Column(name = "task_details")
@@ -30,6 +35,8 @@ public class Task {
 
     @Column(name = "task_deadline")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @FutureOrPresent
+    @NotNull
     private LocalDate taskDeadline;
 
     public Task(String taskSubject, String taskDetails, LocalDate taskDeadline) {
