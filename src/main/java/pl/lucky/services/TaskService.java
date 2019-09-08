@@ -24,7 +24,7 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public void save(Task task) throws ConstraintViolationException {
+    public void save(Task task)  {
         validator.validate(task);
         taskRepository.save(task);
     }

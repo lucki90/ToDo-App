@@ -32,28 +32,30 @@
 <!-- POCZĄTEK FORMULARZ DODAWANIA ZADANIA -->
 
 <form action="#" method="post" th:action="@{/}" th:object="${task}">
+    <div style="width: 500px; display: inline-block">
+        <input type="text" class="form-control" th:field="*{taskSubject}" placeholder="First Name"/>
+    </div>
+    <div style="display: inline-block"><p th:errors="*{taskSubject}"></p></div>
     <div style="width: 500px">
-        <p th:errors="*{taskSubject}">First name errors</p>
-        <input type="text" th:field="*{taskSubject}" placeholder="First Name" />
+        <input type="text" class="form-control" placeholder="Task details" th:field="*{taskDetails}">
     </div>
-    <div style="width: 500px">
-        <p><input type="text" class="form-control" placeholder="Task details" th:field="*{taskDetails}"></p>
+    <div style="width: 200px; display: inline-block">
+        Task deadline: <input type="date" class="input-group date" th:field="*{taskDeadline}">
     </div>
-    <div style="width: 200px">
-        <p>Task deadline: <input type="date" class="input-group date" th:field="*{taskDeadline}"></p>
-    </div>
-
+    <div style="display: inline-block"><p th:errors="*{taskDeadline}"></p></div>
+    <div/>
     <input type="submit" class="btn btn-success" value="Save">
 </form>
 <br><br>
-<div th:if="not ${allTasks.isEmpty()}">
+<div th:if="not ${allTasks.isEmpty()}" class="table-responsive">
     <h1>All added tasks:</h1>
-    <table border="1">
-        <tr style="background-color: greenyellow">
+    <table class="table">
+        <tr>
             <th>Subject</th>
             <th>Content</th>
             <th>Create time</th>
             <th>Deadline</th>
+            <th>Modify</th>
         </tr>
         <tr th:each="singleTask: ${allTasks}" th:object="${singleTask}">
             <td th:text="*{taskSubject}"></td>

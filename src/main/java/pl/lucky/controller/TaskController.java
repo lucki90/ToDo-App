@@ -27,22 +27,25 @@ public class TaskController {
     }
 
     @PostMapping("/")
-    public String saveTask(@Valid @ModelAttribute Task task, BindingResult result) {
-        try {
-            taskService.save(task);
-        } catch (ConstraintViolationException ex) {
-            if (result.hasErrors()) {
-                    List<ObjectError> errors = result.getAllErrors();
-                    errors.forEach(e -> System.out.println(e.getDefaultMessage()));
+    public String saveTask(@Valid @ModelAttribute Task task, BindingResult result, Model model) {
 
-            }
+        if (result.hasErrors()) {
+            List<ObjectError> errors = result.getAllErrors();
+            errors.forEach(e -> System.out.println(e.getDefaultMessage()));
+
+            List<Task> allTasks = taskService.findAll();
+            model.addAttribute("allTasks", allTasks);
+            return "index";
+
         }
+        taskService.save(task);
         return "redirect:/";
     }
 
     @GetMapping("/")
     public String showAllTasks(Model model) {
-        model.addAttribute("task", new Task());
+        Task task = new Task();
+        model.addAttribute(task);
         List<Task> allTasks = taskService.findAll();
         model.addAttribute("allTasks", allTasks);
         return "index";
