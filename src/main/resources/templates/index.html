@@ -35,14 +35,14 @@
     <div style="width: 500px; display: inline-block">
         <input type="text" class="form-control" th:field="*{taskSubject}" placeholder="First Name"/>
     </div>
-    <div style="display: inline-block"><p th:errors="*{taskSubject}"></p></div>
+    <div style="display: inline-block" ><p class="alert-danger" th:errors="*{taskSubject}"></p></div>
     <div style="width: 500px">
         <input type="text" class="form-control" placeholder="Task details" th:field="*{taskDetails}">
     </div>
     <div style="width: 200px; display: inline-block">
         Task deadline: <input type="date" class="input-group date" th:field="*{taskDeadline}">
     </div>
-    <div style="display: inline-block"><p th:errors="*{taskDeadline}"></p></div>
+    <div style="display: inline-block" ><p class="alert-danger" th:errors="*{taskDeadline}"></p></div>
     <div/>
     <input type="submit" class="btn btn-success" value="Save">
 </form>
