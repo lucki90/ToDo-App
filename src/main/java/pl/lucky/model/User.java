@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+public class User {//TODO zmienic nazwe tabeli na users
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

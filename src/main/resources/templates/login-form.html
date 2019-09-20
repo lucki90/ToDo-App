@@ -12,7 +12,7 @@
 
 <form action="/loginForm" th:action="@{/loginForm}" method="post">
     <input name="username" class="form-control" placeholder="username"/><br>
-    <input name="password" class="form-control" placeholder="password"/><br>
+    <input type="password" name="password" class="form-control" placeholder="password"/><br>
     <input type="submit" class="btn btn-success" value="login"/>
 </form>
 <form action="/registrationForm" th:action="@{/registrationForm}" >
