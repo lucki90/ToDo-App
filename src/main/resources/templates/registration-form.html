@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Registration form</title>
-    <!-- Bootstrap core CSS -->
-    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
 </head>
 <body>
 <h1>Registration form</h1>
 
-t.b.c.
+<form action="#" method="post" th:action="@{/register}" th:object="${user}">
+    <input type="text" th:field="*{firstName}" placeholder="First name"/>
+    <input type="text" th:field="*{lastName}" placeholder="Last name"/>
+    <input type="text" th:field="*{ownerLogin}" placeholder="Login"/>
+    <input type="text" th:field="*{password}" placeholder="Password"/>
+    <input type="text" th:field="*{email}" placeholder="Email address"/>
+    <input type="text" th:field="*{phoneNumber}" placeholder="Phone number"/>
+    <input type="submit" value="Register"/>
+</form>
+
+
 </body>
 </html>

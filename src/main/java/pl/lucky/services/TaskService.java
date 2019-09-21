@@ -5,11 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.lucky.model.Task;
 import pl.lucky.repository.TaskRepository;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class TaskService {
