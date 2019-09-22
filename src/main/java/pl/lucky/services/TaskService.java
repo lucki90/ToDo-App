@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lucky.model.Task;
 import pl.lucky.repository.TaskRepository;
+import pl.lucky.repository.UserRepository;
+import pl.lucky.security.AccessFilter;
 
 import javax.validation.Validator;
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
 public class TaskService {
 
     private TaskRepository taskRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private Validator validator;
@@ -21,13 +25,18 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public void save(Task task)  {
+    public void save(Task task) {
+        task.setUser(userRepository.findById(AccessFilter.getOwnerId()).get());
         validator.validate(task);
         taskRepository.save(task);
     }
 
     public List<Task> findAll() {
-        return taskRepository.findAll();
+
+        if (AccessFilter.getOwnerRole().getRole().contains("ADMIN")) {
+            return taskRepository.findAll();
+        }
+        return taskRepository.findByUser_Id(AccessFilter.getOwnerId());
     }
 
     public void delete(Long id) {

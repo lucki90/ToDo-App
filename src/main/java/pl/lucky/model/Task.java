@@ -38,9 +38,15 @@ public class Task {
     @NotNull(message = "{pl.lucky.model.Task.taskDeadLine.FutureOrPresent}")
     private LocalDate taskDeadline;
 
-    public Task(String taskSubject, String taskDetails, LocalDate taskDeadline) {
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Task(String taskSubject, String taskDetails, LocalDateTime taskCreateTime, LocalDate taskDeadline, User user) {
         this.taskSubject = taskSubject;
         this.taskDetails = taskDetails;
+        this.taskCreateTime = taskCreateTime;
         this.taskDeadline = taskDeadline;
+        this.user = user;
     }
 }
