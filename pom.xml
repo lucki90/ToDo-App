@@ -10,7 +10,7 @@
     </parent>
     <groupId>pl.lucky</groupId>
     <artifactId>todo-app</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <packaging>war</packaging>
     <name>todo-app</name>
     <description>Spring Boot application for multiple users to manage their tasks</description>
@@ -72,6 +72,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <finalName>todo-app</finalName>
+                </configuration>
             </plugin>
         </plugins>
     </build>
