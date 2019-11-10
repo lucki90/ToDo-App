@@ -12,4 +12,4 @@ docker ps -a
 echo "List all images:"
 docker images
 echo "List all volumes:"
-docker volme ls
+docker volume ls
