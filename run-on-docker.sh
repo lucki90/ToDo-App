@@ -48,7 +48,7 @@ fi
 
 echo "Creating and running container from image mysql:${MYSQL_VERSION}..."
 if [[ "$(docker ps -a | grep ${MYSQL_CONTAINER_NAME} | grep up)" == "" ]]; then
-    if [[ "$(docker ps -a | grep ${MYSQL_CONTAINER_NAME} )" == "" ]]; then
+    if [[ "$(docker ps -a | grep ${MYSQL_CONTAINER_NAME} )" != "" ]]; then
     echo "Removing unused container: ${MYSQL_CONTAINER_NAME}"
     docker rm -f ${MYSQL_CONTAINER_NAME}
     fi
