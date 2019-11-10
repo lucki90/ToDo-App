@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>ToDo</title>
     <!-- Bootstrap core CSS -->
     <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
@@ -36,6 +36,7 @@
     <h1>All added tasks:</h1>
     <table class="table">
         <tr>
+            <th>Owner login</th>
             <th>Subject</th>
             <th>Content</th>
             <th>Create time</th>
@@ -43,6 +44,7 @@
             <th>Modify</th>
         </tr>
         <tr th:each="singleTask: ${allTasks}" th:object="${singleTask}">
+            <td th:text="*{user.getOwnerLogin()}"></td>
             <td th:text="*{taskSubject}"></td>
             <td th:text="*{taskDetails}"></td>
             <td th:text="*{taskCreateTime}"></td>
