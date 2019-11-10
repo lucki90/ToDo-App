@@ -71,3 +71,6 @@ if [[ "$(docker ps -a | grep ${MYSQL_CONTAINER_NAME} | grep up)" == "" ]]; then
 fi
 docker run -p 8080:8080 --name ${APP_CONTAINER_NAME} --link ${MYSQL_CONTAINER_NAME}:mysql -d ${APP_IMAGE_NAME}
 
+#/TODO temporary solution - user_role doesn't add to DB from schema.sql when running app on docker
+mysql --user="root" --password="root" --database="todo_app" --execute="INSERT INTO todo_app.user_role (role, description) VALUES ('ROLE_ADMIN', 'Access to all data');"
+mysql --user="root" --password="root" --database="todo_app" --execute="INSERT INTO todo_app.user_role (role, description) VALUES ('ROLE_USER', 'Access to one user data');"
