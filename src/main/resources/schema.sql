@@ -1,4 +1,4 @@
-INSERT INTO user_role
+INSERT INTO todo_app.user_role
     (role, description)
 SELECT 'ROLE_ADMIN', 'Access to all data'
 WHERE
@@ -6,7 +6,7 @@ WHERE
         SELECT role FROM user_role WHERE role = 'ROLE_ADMIN'
 );
 
-INSERT INTO user_role
+INSERT INTO todo_app.user_role
     (role, description)
 SELECT 'ROLE_USER', 'Access to one user data'
 WHERE
