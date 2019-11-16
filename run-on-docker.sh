@@ -21,6 +21,7 @@ fi
 
 echo "$(tput setaf 3)Checking docker...$(tput sgr0)"
 if [[ "$(dpkg -l | grep docker)" = "" ]]; then
+    echo "$(tput setaf 3)Installing docker$(tput sgr0)"
     apt-get install -y libltdl7
     export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     wget https://download.docker.com/linux/debian/dists/buster/pool/stable/amd64/docker-ce_18.06.3~ce~3-0~debian_amd64.deb
@@ -40,7 +41,7 @@ echo "$(tput setaf 2)OK -todo-app.war has been made.$(tput sgr0)"
 
 echo "$(tput setaf 3)Checking mysql image...$(tput sgr0)"
 if [[ "$(docker images | grep mysql)" == "" ]]; then
-    echo "Pulling mysql:${MYSQL_VERSION}$(tput sgr0)"
+    echo "$(tput setaf 3)Pulling mysql:${MYSQL_VERSION}$(tput sgr0)"
     docker pull mysql:${MYSQL_VERSION}
     echo "$(tput setaf 2)OK - Pulling mysql:${MYSQL_VERSION} complete.$(tput sgr0)"
 else
