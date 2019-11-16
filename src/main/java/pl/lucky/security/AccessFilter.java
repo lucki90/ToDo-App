@@ -1,8 +1,9 @@
 package pl.lucky.security;
 
+import org.springframework.web.context.annotation.SessionScope;
 import pl.lucky.model.UserRole;
 
-
+@SessionScope
 public class AccessFilter {
 
     private static Long ownerId;
