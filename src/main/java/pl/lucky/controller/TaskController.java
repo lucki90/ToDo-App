@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.lucky.model.Task;
 import pl.lucky.services.TaskService;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.List;
 

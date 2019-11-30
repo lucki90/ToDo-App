@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     @RequestMapping("/registrationForm")
-    public String secret(){
+    public String secret() {
         return "registration-form";
     }
 
     @RequestMapping("/loginForm")
-    public String loginForm(){
+    public String loginForm() {
         return "login-form";
     }
 
     @RequestMapping("/logoutForm")
-    public String logoutForm(){
+    public String logoutForm() {
         return "login-form";
     }
 

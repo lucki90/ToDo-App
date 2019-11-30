@@ -8,12 +8,14 @@ import pl.lucky.repository.UserRepository;
 import pl.lucky.security.AccessFilter;
 
 import javax.validation.Validator;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class TaskService {
 
     private TaskRepository taskRepository;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -43,5 +45,10 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
+    //Method will be use for automatic sending mail to all users
+    public List<Task> findTasksForTomorrow() {
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        return taskRepository.findAllByTaskDeadline(tomorrow);
+    }
 
 }

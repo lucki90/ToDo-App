@@ -34,8 +34,8 @@ public class Task {
 
     @Column(name = "task_deadline")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @FutureOrPresent(message = "{pl.lucky.model.Task.taskDeadLine.NotEmpty}")
-    @NotNull(message = "{pl.lucky.model.Task.taskDeadLine.FutureOrPresent}")
+    @FutureOrPresent(message = "{pl.lucky.model.Task.taskDeadLine.FutureOrPresent}")
+    @NotNull(message = "{pl.lucky.model.Task.taskDeadLine.NotEmpty}")
     private LocalDate taskDeadline;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

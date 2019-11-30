@@ -32,7 +32,7 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
-    public void addWithDefaultRole(User user){
+    public void addWithDefaultRole(User user) {
         UserRole defaultRole = roleRepository.findByRole(DEFAULT_ROLE);
         user.setRole(defaultRole);
         String passwordHash = passwordEncoder.encode(user.getPassword());
