@@ -19,6 +19,29 @@
         <java.version>1.8</java.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <db.name>todo_app</db.name>
+                <db.host>mysql-standalone</db.host>
+                <db.port>3306</db.port>
+                <db.username>root</db.username>
+                <db.password>root</db.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>local</id>
+            <properties>
+                <db.name>todo_app</db.name>
+                <db.host>localhost</db.host>
+                <db.port>3306</db.port>
+                <db.username>root</db.username>
+                <db.password>root</db.password>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -84,6 +107,12 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
