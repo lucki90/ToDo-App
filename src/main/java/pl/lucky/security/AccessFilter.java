@@ -1,27 +1,29 @@
 package pl.lucky.security;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 import pl.lucky.model.UserRole;
 
 @SessionScope
+@Component
 public class AccessFilter {
 
-    private static Long ownerId;
-    private static UserRole ownerRole;
+    private Long ownerId;
+    private UserRole ownerRole;
 
-    public static Long getOwnerId() {
+    public Long getOwnerId() {
         return ownerId;
     }
 
-    static void setOwnerId(Long ownerId) {
-        AccessFilter.ownerId = ownerId;
-    }
-
-    public static UserRole getOwnerRole() {
+    public UserRole getOwnerRole() {
         return ownerRole;
     }
 
-    static void setOwnerRole(UserRole ownerRole) {
-        AccessFilter.ownerRole = ownerRole;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setOwnerRole(UserRole ownerRole) {
+        this.ownerRole = ownerRole;
     }
 }

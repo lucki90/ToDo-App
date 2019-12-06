@@ -3,7 +3,6 @@ package pl.lucky.services.mailService;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
-import pl.lucky.services.MailService;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

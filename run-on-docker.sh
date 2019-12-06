@@ -35,9 +35,8 @@ fi
 echo "$(tput setaf 3)Preparing for making todo-app.war...$(tput sgr0)"
 mvn clean
 echo "$(tput setaf 3)Begin to make todo-app.war...$(tput sgr0)"
-mvn install -Dmaven.test.skip=true
+mvn install -Pdocker -DprofileIdEnabled=true -Dmaven.test.skip=true
 echo "$(tput setaf 2)OK -todo-app.war has been made.$(tput sgr0)"
-
 
 echo "$(tput setaf 3)Checking mysql image...$(tput sgr0)"
 if [[ "$(docker images | grep mysql)" == "" ]]; then

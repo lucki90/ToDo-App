@@ -12,8 +12,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        return passwordEncoder;
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Override

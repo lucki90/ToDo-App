@@ -20,6 +20,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Autowired
+    private AccessFilter accessFilter;
+
+    @Autowired
     public CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -31,8 +34,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
 
-        AccessFilter.setOwnerId(user.getId());
-        AccessFilter.setOwnerRole(user.getRole());
+        accessFilter.setOwnerId(user.getId());
+        accessFilter.setOwnerRole(user.getRole());
 
         return new org.springframework.security.core.userdetails.User(
                 user.getOwnerLogin(),

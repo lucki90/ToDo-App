@@ -1,4 +1,4 @@
-package pl.lucky.services;
+package pl.lucky.services.mailService;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -10,6 +10,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import pl.lucky.model.Task;
+import pl.lucky.services.TaskService;
 
 import java.util.Date;
 import java.util.List;

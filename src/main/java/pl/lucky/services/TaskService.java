@@ -17,6 +17,9 @@ public class TaskService {
     private TaskRepository taskRepository;
 
     @Autowired
+    private AccessFilter accessFilter;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -28,17 +31,17 @@ public class TaskService {
     }
 
     public void save(Task task) {
-        task.setUser(userRepository.findById(AccessFilter.getOwnerId()).get());
+        task.setUser(userRepository.findById(accessFilter.getOwnerId()).get());
         validator.validate(task);
         taskRepository.save(task);
     }
 
     public List<Task> findAll() {
 
-        if (AccessFilter.getOwnerRole().getRole().contains("ADMIN")) {
+        if (accessFilter.getOwnerRole().getRole().contains("ADMIN")) {
             return taskRepository.findAll();
         }
-        return taskRepository.findByUser_Id(AccessFilter.getOwnerId());
+        return taskRepository.findByUser_Id(accessFilter.getOwnerId());
     }
 
     public void delete(Long id) {
