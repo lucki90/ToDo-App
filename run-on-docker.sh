@@ -9,7 +9,7 @@ MYSQL_PASSWORD=root
 APP_IMAGE_NAME=todo-app-img
 APP_CONTAINER_NAME=todo-app
 
-#apt-get update
+#============================INSTALL MAVEN=====================================#
 echo "$(tput setaf 3)Checking maven...$(tput sgr0)"
 if [[ "$(dpkg -l | grep maven)" == "" ]]; then
     echo "$(tput setaf 3)Installing maven$(tput sgr0)"
@@ -18,7 +18,9 @@ if [[ "$(dpkg -l | grep maven)" == "" ]]; then
 else
     echo "$(tput setaf 2)OK - maven has already been installed.$(tput sgr0)"
 fi
+#===============================================================================#
 
+#============================INSTALL DOCKER=====================================#
 echo "$(tput setaf 3)Checking docker...$(tput sgr0)"
 if [[ "$(dpkg -l | grep docker)" = "" ]]; then
     echo "$(tput setaf 3)Installing docker$(tput sgr0)"
@@ -26,18 +28,13 @@ if [[ "$(dpkg -l | grep docker)" = "" ]]; then
     export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     wget https://download.docker.com/linux/debian/dists/buster/pool/stable/amd64/docker-ce_18.06.3~ce~3-0~debian_amd64.deb
     dpkg -i  docker-ce_18.06.3~ce~3-0~debian_amd64.deb
-#sudo usermod -aG docker root
     echo "$(tput setaf 2)OK - docker installation completed.$(tput sgr0)"
 else
     echo "$(tput setaf 2)OK - docker has already been installed.$(tput sgr0)"
 fi
+#======================================================================================#
 
-echo "$(tput setaf 3)Preparing for making todo-app.war...$(tput sgr0)"
-mvn clean
-echo "$(tput setaf 3)Begin to make todo-app.war...$(tput sgr0)"
-mvn install -Pdocker -DprofileIdEnabled=true -Dmaven.test.skip=true
-echo "$(tput setaf 2)OK -todo-app.war has been made.$(tput sgr0)"
-
+#============================PULL MSQL IMAGE===========================================#
 echo "$(tput setaf 3)Checking mysql image...$(tput sgr0)"
 if [[ "$(docker images | grep mysql)" == "" ]]; then
     echo "$(tput setaf 3)Pulling mysql:${MYSQL_VERSION}$(tput sgr0)"
@@ -46,7 +43,9 @@ if [[ "$(docker images | grep mysql)" == "" ]]; then
 else
     echo "$(tput setaf 2)OK - Image has already been pulled.$(tput sgr0)"
 fi
+#======================================================================================#
 
+#============================RUN MSQL CONTAINER========================================#
 echo "$(tput setaf 3)Creating and running container from image mysql:${MYSQL_VERSION}...$(tput sgr0)"
 if [[ "$(docker ps -a | grep ${MYSQL_CONTAINER_NAME} | grep up)" == "" ]]; then
     if [[ "$(docker ps -a | grep ${MYSQL_CONTAINER_NAME} )" != "" ]]; then
@@ -63,21 +62,37 @@ docker run --name ${MYSQL_CONTAINER_NAME} \
 else
     echo "$(tput setaf 2)Container already created$(tput sgr0)"
 fi
+#======================================================================================#
 
+#============================CREATE APP WAR============================================#
+echo "$(tput setaf 3)Preparing for making todo-app.war...$(tput sgr0)"
+mvn clean
+echo "$(tput setaf 3)Begin to make todo-app.war...$(tput sgr0)"
+mvn install -Pdocker -DprofileIdEnabled=true -Dmaven.test.skip=true
+echo "$(tput setaf 2)OK -todo-app.war has been made.$(tput sgr0)"
+#======================================================================================#
+
+#============================BUILD APP IMAGE===========================================#
 echo "$(tput setaf 3)Building todo-app image from Dockerfile...$(tput sgr0)"
 docker build -t ${APP_IMAGE_NAME} .
 echo "$(tput setaf 2)OK - image has been built.$(tput sgr0)"
+#======================================================================================#
 
+#============================CHECK MYSQL CONTAINER=====================================#
 if [[ "$(docker ps -a | grep ${MYSQL_CONTAINER_NAME} | grep up)" == "" ]]; then
     echo "$(tput setaf 3)Starting mysql container...$(tput sgr0)"
     docker start ${MYSQL_CONTAINER_NAME}
     echo "$(tput setaf 2)OK - mysql container has been started.$(tput sgr0)"
 fi
+#======================================================================================#
+
+#============================RUN APP CONTAINER=========================================#
 echo "$(tput setaf 3)Building todo-app container...$(tput sgr0)"
 docker run -p 8080:8080 --name ${APP_CONTAINER_NAME} --link ${MYSQL_CONTAINER_NAME}:mysql -d ${APP_IMAGE_NAME}
 echo "$(tput setaf 2)OK - todo-app is up.$(tput sgr0)"
+#======================================================================================#
 
-
+#============================ADD BASIC ROLES TO DB=====================================#
 sleep 10s
-#/TODO temporary solution - user_role doesn't add to DB from schema.sql when running app on docker
 docker exec mysql-standalone mysql --user="root" --password="root" --database="todo_app" --execute="INSERT INTO todo_app.user_role (role, description) VALUES ('ROLE_ADMIN', 'Access to all data'), ('ROLE_USER', 'Access to one user data');"
+#======================================================================================#
