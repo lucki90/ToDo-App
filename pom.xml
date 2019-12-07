@@ -28,6 +28,7 @@
                 <db.port>3306</db.port>
                 <db.username>root</db.username>
                 <db.password>root</db.password>
+                <db.initialization-mode>never</db.initialization-mode>
             </properties>
         </profile>
         <profile>
@@ -38,6 +39,7 @@
                 <db.port>3306</db.port>
                 <db.username>root</db.username>
                 <db.password>root</db.password>
+                <db.initialization-mode>always</db.initialization-mode>
             </properties>
         </profile>
     </profiles>
