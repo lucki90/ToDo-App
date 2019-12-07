@@ -32,13 +32,6 @@ else
     echo "$(tput setaf 2)OK - docker has already been installed.$(tput sgr0)"
 fi
 
-echo "$(tput setaf 3)Preparing for making todo-app.war...$(tput sgr0)"
-mvn clean
-echo "$(tput setaf 3)Begin to make todo-app.war...$(tput sgr0)"
-mvn install -Dmaven.test.skip=true
-echo "$(tput setaf 2)OK -todo-app.war has been made.$(tput sgr0)"
-
-
 echo "$(tput setaf 3)Checking mysql image...$(tput sgr0)"
 if [[ "$(docker images | grep mysql)" == "" ]]; then
     echo "$(tput setaf 3)Pulling mysql:${MYSQL_VERSION}$(tput sgr0)"
@@ -65,6 +58,13 @@ else
     echo "$(tput setaf 2)Container already created$(tput sgr0)"
 fi
 
+echo "$(tput setaf 3)Preparing for making todo-app.war...$(tput sgr0)"
+mvn clean
+echo "$(tput setaf 3)Begin to make todo-app.war...$(tput sgr0)"
+mvn install -Dmaven.test.skip=true
+echo "$(tput setaf 2)OK -todo-app.war has been made.$(tput sgr0)"
+
+
 echo "$(tput setaf 3)Building todo-app image from Dockerfile...$(tput sgr0)"
 docker build -t ${APP_IMAGE_NAME} .
 echo "$(tput setaf 2)OK - image has been built.$(tput sgr0)"
@@ -79,6 +79,6 @@ docker run -p 8080:8080 --name ${APP_CONTAINER_NAME} --link ${MYSQL_CONTAINER_NA
 echo "$(tput setaf 2)OK - todo-app is up.$(tput sgr0)"
 
 
-sleep 10s
+sleep 20s
 #/TODO temporary solution - user_role doesn't add to DB from schema.sql when running app on docker
 docker exec mysql-standalone mysql --user="root" --password="root" --database="todo_app" --execute="INSERT INTO todo_app.user_role (role, description) VALUES ('ROLE_ADMIN', 'Access to all data'), ('ROLE_USER', 'Access to one user data');"
