@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Registration form</title>
-    <!-- Bootstrap core CSS -->
-    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <div th:replace="header :: head"></div>
 </head>
 <body>
+<div th:insert="header :: myHeader"></div>
 <h1>Registration form</h1>
 
 <form action="#" method="post" th:action="@{/register}" th:object="${user}">
@@ -16,9 +14,8 @@
     <input type="text" th:field="*{password}" placeholder="Password"/>
     <input type="text" th:field="*{email}" placeholder="Email address"/>
     <input type="text" th:field="*{phoneNumber}" placeholder="Phone number"/>
-    <input type="submit" value="Register"/>
+    <input type="submit" class="btn btn-success" value="Register"/>
 </form>
-
 
 </body>
 </html>

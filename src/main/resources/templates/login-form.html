@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Loger</title>
-    <!-- Bootstrap core CSS -->
-    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <div th:replace="header :: head"></div>
 </head>
 <body>
+<div th:insert="header :: myHeader"></div>
+
 <h1>Please login</h1>
 
-<form action="/loginForm" th:action="@{/loginForm}" method="post">
+<form action="#" th:action="@{/loginForm}" method="post">
     <input name="username" class="form-control" placeholder="username"/><br>
     <input type="password" name="password" class="form-control" placeholder="password"/><br>
-    <input type="submit"  value="login"/>
+    <input type="submit" class="btn btn-success" value="login"/>
 </form>
-<form action="/register" th:action="@{/register}" method="get">
+<form action="#" th:action="@{/register}" method="get">
     <h1>Registration Form</h1>
-    <input type="submit" class="btn btn-success" value="Go to registration!">
+    <input type="submit" class="btn btn-info" value="Go to registration!">
 </form>
 
 </body>

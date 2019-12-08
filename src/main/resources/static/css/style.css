@@ -1,0 +1,12 @@
+.nav-header
+{
+    width: 100%;
+    padding: 10px 0;
+    background-color: #FF8C00;
+    text-align: center !important;
+    border-top: 1px solid #751b1b;
+    border-bottom: 1px solid #751b1b;
+    font-size: 48px;
+    color: white;
+    font-weight: bold;
+}

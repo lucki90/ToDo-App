@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Registration success</title>
-    <!-- Bootstrap core CSS -->
-    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <div th:replace="header :: head"></div>
 </head>
 <body>
+<div th:insert="header :: myHeader"></div>
 <h1>Thanks for registration !</h1>
 
-<a href="login-form.html">Go to homepage</a>
+<form action="#" th:action="@{/logoutForm}" method="post">
+    <input type="submit" class="btn btn-danger" value="Go to homepage">
+</form>
+<!--<a href="login-form.html">Go to homepage</a>-->
 
 
 </body>

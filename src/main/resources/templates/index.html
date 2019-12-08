@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>ToDo</title>
-    <!-- Bootstrap core CSS -->
-    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <div th:replace="header :: head"></div>
 </head>
 <body>
+<div th:insert="header :: myHeader"></div>
 <h1>Add task to do:</h1>
 <!-- 1 FORMULARZ DODAWANIA ZADANIA -->
 <form action="#" method="post" th:action="@{/}" th:object="${task}">
@@ -26,7 +24,7 @@
 </form>
 <!-- 2 FORMULARZ DODAWANIA ZADANIA -->
 <!-- 1 FORMULARZ WYLOGOWANIA-->
-<form action="/logoutForm" th:action="@{/logoutForm}" method="post">
+<form action="#" th:action="@{/logoutForm}" method="post">
     <input type="submit" class="btn btn-danger" value="Log me out">
 </form>
 <!-- 2 FORMULARZ WYLOGOWANIA-->
