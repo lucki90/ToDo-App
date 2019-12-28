@@ -9,16 +9,16 @@
 <!-- 1 FORMULARZ DODAWANIA ZADANIA -->
 <form action="#" method="post" th:action="@{/}" th:object="${task}">
     <div style="width: 500px; display: inline-block">
-        <input type="text" class="form-control" th:field="*{taskSubject}" placeholder="First Name"/>
+        <input type="text" class="form-control" th:field="*{taskSubject}" placeholder="Subject"/>
     </div>
-    <div style="display: inline-block" ><p class="alert-danger" th:errors="*{taskSubject}"></p></div>
+    <div style="display: inline-block"><p class="alert-danger" th:errors="*{taskSubject}"></p></div>
     <div style="width: 500px">
         <input type="text" class="form-control" placeholder="Task details" th:field="*{taskDetails}">
     </div>
     <div style="width: 200px; display: inline-block">
         Task deadline: <input type="date" class="input-group date" th:field="*{taskDeadline}">
     </div>
-    <div style="display: inline-block" ><p class="alert-danger" th:errors="*{taskDeadline}"></p></div>
+    <div style="display: inline-block"><p class="alert-danger" th:errors="*{taskDeadline}"></p></div>
     <div/>
     <input type="submit" class="btn btn-success" value="Save">
 </form>
@@ -30,9 +30,12 @@
 <!-- 2 FORMULARZ WYLOGOWANIA-->
 
 <br><br>
-<div th:if="not ${allTasks.isEmpty()}" class="table-responsive">
+
+<!--------------------------------------------------------------------------------------->
+<div th:if="not ${taskPage.isEmpty()} or ${taskPage.totalPages > 0}" class="table-responsive">
     <h1>All added tasks:</h1>
     <table class="table">
+        <thead>
         <tr>
             <th>Owner login</th>
             <th>Subject</th>
@@ -41,22 +44,36 @@
             <th>Deadline</th>
             <th>Modify</th>
         </tr>
-        <tr th:each="singleTask: ${allTasks}" th:object="${singleTask}">
-            <td th:text="*{user.getOwnerLogin()}"></td>
-            <td th:text="*{taskSubject}"></td>
-            <td th:text="*{taskDetails}"></td>
-            <td th:text="*{taskCreateTime}"></td>
-            <td th:text="*{taskDeadline}"></td>
+        </thead>
+        <tbody>
+        <tr th:each="task, iStat : ${taskPage.content}"
+            th:style="${iStat.odd}? 'font-weight: bold;'"
+            th:alt-title="${iStat.even}? 'even' : 'odd'">
+            <td th:text="*{task.user.ownerLogin}"></td>
+            <td th:text="*{task.taskSubject}"></td>
+            <td th:text="*{task.taskDetails}"></td>
+            <td th:text="*{task.taskCreateTime}"></td>
+            <td th:text="*{task.taskDeadline}"></td>
             <td>
-                <form action="#" method="post" th:action="@{/delete/{id}(id=${singleTask.getId()})}">
+                <form action="#" method="post" th:action="@{/delete/{id}(id=${task.id})}">
                     <input type="submit" class="btn btn-danger" value="Delete">
                 </form>
             </td>
         </tr>
+        </tbody>
     </table>
+
 </div>
-<div th:if="${allTasks.isEmpty()}">
-    <h1>There is no data yet :(</h1>
+    <div style="float: left; margin-left: 5px" th:if="${taskPage.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/(size=${taskPage.size}, page=${pageNumber})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber==taskPage.number + 1} ? active"></a>
+    </div>
+<div style="clear: both;"></div>
+
+<div th:if="${taskPage.isEmpty()} and ${taskPage.totalPages < 1}">
+    <h1>There is no tasks yet :(</h1>
 </div>
 
 

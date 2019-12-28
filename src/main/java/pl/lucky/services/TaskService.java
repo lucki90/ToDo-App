@@ -1,6 +1,10 @@
 package pl.lucky.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.lucky.model.Task;
 import pl.lucky.repository.TaskRepository;
@@ -9,6 +13,7 @@ import pl.lucky.security.AccessFilter;
 
 import javax.validation.Validator;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -36,8 +41,24 @@ public class TaskService {
         taskRepository.save(task);
     }
 
-    public List<Task> findAll() {
+    public Page<Task> findAllPaginated(Pageable pageable){
+        List<Task> tasks = findAll();
 
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<Task> list;
+
+        if (tasks.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, tasks.size());
+            list = tasks.subList(startItem, toIndex);
+        }
+        return new PageImpl<Task>(list, PageRequest.of(currentPage,pageSize),tasks.size());
+    }
+
+    public List<Task> findAll() {
         if (accessFilter.getOwnerRole().getRole().contains("ADMIN")) {
             return taskRepository.findAll();
         }
