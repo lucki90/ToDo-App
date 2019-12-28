@@ -5,18 +5,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 @Configuration
 public class MailConfiguration {
-//TODO brać hasło z pliku konfiguracyjnego lub bazy
-    private String smtpHost = "smtp.gmail.com";
-    private String fromMail = "lucky.todo.app@gmail.com";
-    private String smtpPassword = "Todoapp123@";
-    private int smtpPort = 587;
+    private String smtpHost;
+    private String fromMail;
+    private String smtpPassword;
+    private int smtpPort;
 
     @Bean("JavaMailSenderBean")
     public JavaMailSender getJavaMailSender() {
+        loadMailProperties();
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(smtpHost);
         mailSender.setPort(smtpPort);
@@ -33,4 +36,18 @@ public class MailConfiguration {
         return mailSender;
     }
 
+    private void loadMailProperties() {
+        try (InputStream input = new FileInputStream("src/main/resources/mail.properties")) {
+            Properties props = new Properties();
+            props.load(input);
+
+            smtpHost = props.getProperty("smtp.host");
+            fromMail = props.getProperty("from.mail");
+            smtpPassword = props.getProperty("smtp.password");
+            smtpPort = Integer.parseInt(props.getProperty("smtp.port"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
