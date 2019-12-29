@@ -3,6 +3,41 @@
 <head>
     <title>Todo-app</title>
     <div th:replace="header :: head"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script th:inline="javascript">
+        //thymeleaf to javascript variables
+        /*<![CDATA[*/
+        var sortProperty = /*[[${sortProperty}]]*/ null;
+        var sortDesc = /*[[${sortDesc}]]*/ null;
+        var currentPage = /*[[${taskPage.number}]]*/ 0;
+        var pageSize =/*[[${taskPage.size}]]*/ 0;
+        /*]]>*/
+
+        $(document).ready(function(){
+            //show up/down arrows
+            $("table#task-table thead th").each(function(){
+                var head = $(this);
+                if(head.attr('data-sort-prop')==sortProperty){
+                    head.append(sortDesc?'▾':'▴');
+                }
+            });
+
+            //set click action, reload page on clicking with all query params
+            $("table#task-table thead th").click(function() {
+                var headerSortPropName = $(this).attr("data-sort-prop");
+                if(headerSortPropName==sortProperty){
+                    window.location.href = window.location.pathname+
+                        '?page='+currentPage+'&size='+pageSize+'&sort='+ headerSortPropName+','+
+                        (sortDesc?'asc':'desc');
+                }else{
+                    window.location.href = window.location.pathname+
+                        '?page='+currentPage+'&size='+pageSize+'&sort='+ headerSortPropName+',asc';
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 <div th:insert="header :: myHeader"></div>
@@ -33,21 +68,21 @@
 <br><br>
 
 <!--------------------------------------------------------------------------------------->
-<div th:if="not ${taskPage.isEmpty()} or ${taskPage.totalPages > 0}" class="table-responsive">
+<div th:if="not ${taskPage.isEmpty()} or ${taskPage.totalPages > 0}">
     <h1>All added tasks:</h1>
-    <table class="table">
+    <table id="task-table" class="table table-striped table-bordered table-hover table-condensed">
         <thead>
         <tr>
-            <th>Owner login</th>
-            <th>Subject</th>
-            <th>Content</th>
-            <th>Create time</th>
-            <th>Deadline</th>
-            <th>Modify</th>
+            <th data-sort-prop="user.ownerLogin">Id</th>
+            <th data-sort-prop="taskSubject">Subject</th>
+            <th data-sort-prop="taskDetails">Content</th>
+            <th data-sort-prop="taskCreateTime">Create time</th>
+            <th data-sort-prop="taskDeadline">Deadline</th>
+            <th data-sort-prop="id">Modify</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="task, iStat : ${taskPage.content}"
+        <tr class="active" th:each="task, iStat : ${taskPage.content}"
             th:style="${iStat.odd}? 'font-weight: bold;'"
             th:alt-title="${iStat.even}? 'even' : 'odd'">
             <td th:text="*{task.user.ownerLogin}"></td>
@@ -63,20 +98,28 @@
         </tr>
         </tbody>
     </table>
-
 </div>
-    <div style="float: left; margin-left: 5px" th:if="${taskPage.totalPages > 0}" class="pagination"
-         th:each="pageNumber : ${pageNumbers}">
-        <a th:href="@{/(size=${taskPage.size}, page=${pageNumber})}"
-           th:text=${pageNumber}
-           th:class="${pageNumber==taskPage.number + 1} ? active"></a>
-    </div>
-<div style="clear: both;"></div>
 
+<!-- using th:with to declare a local variable for sorting query param -->
+<div class="pagination-div" style="text-align: center !important;" th:with="sortParam=${sortProperty+','+(sortDesc?'desc':'asc')}">
+    <span th:if="${taskPage.hasPrevious()}">
+        <a th:href="@{/(page=${taskPage.number-1},size=${taskPage.size},sort=${sortParam})}">Previous</a>
+    </span>
+    <th:block th:each="i: ${#numbers.sequence(0, taskPage.totalPages - 1)}">
+        <span th:if="${taskPage.number == i}" class="selected">[[${i}+1]]</span>
+        <span th:unless="${taskPage.number == i}">
+             <a th:href="@{/(page=${i},size=${taskPage.size},sort=${sortParam})}">[[${i}+1]]</a>
+        </span>
+    </th:block>
+    <span th:if="${taskPage.hasNext()}">
+        <a th:href="@{/(page=${taskPage.number+1},size=${taskPage.size},sort=${sortParam})}">Next</a>
+    </span>
+</div>
+
+<div style="clear: both;"></div>
 <div th:if="${taskPage.isEmpty()} and ${taskPage.totalPages < 1}">
     <h1>There is no tasks yet :(</h1>
 </div>
-
 
 </body>
 </html>
