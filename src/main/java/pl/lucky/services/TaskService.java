@@ -60,9 +60,9 @@ public class TaskService {
 
     public List<Task> findAll() {
         if (accessFilter.getOwnerRole().getRole().contains("ADMIN")) {
-            return taskRepository.findAll();
+            return taskRepository.findAllByOrderByTaskCreateTimeDesc();
         }
-        return taskRepository.findByUser_Id(accessFilter.getOwnerId());
+        return taskRepository.findByUser_IdOrderByTaskCreateTimeDesc(accessFilter.getOwnerId());
     }
 
     public void delete(Long id) {

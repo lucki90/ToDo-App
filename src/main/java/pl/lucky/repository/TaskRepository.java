@@ -12,7 +12,9 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    List<Task> findByUser_Id(Long ownerId);
+    List<Task> findByUser_IdOrderByTaskCreateTimeDesc(Long ownerId);
+
+    List<Task> findAllByOrderByTaskCreateTimeDesc();
 
     @Query("SELECT t FROM tasks t WHERE t.taskDeadline = :tomorrow")
     List<Task> findAllByTaskDeadline(@Param("tomorrow") LocalDate tomorrow);
