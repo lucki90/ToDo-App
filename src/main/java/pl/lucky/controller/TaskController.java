@@ -51,9 +51,7 @@ public class TaskController {
         return "index";
     }
 
-    private void getPaginatedTasks(Model model,
-                                   @RequestParam("page") Optional<Integer> page,
-                                   @RequestParam("size") Optional<Integer> size) {
+    private void getPaginatedTasks(Model model, Optional<Integer> page, Optional<Integer> size) {
         int currentPage = getCurrentPage(page);
         int pageSize = getPageSize(size);
 
@@ -69,7 +67,7 @@ public class TaskController {
         }
     }
 
-    private int getPageSize(@RequestParam("size") Optional<Integer> size) {
+    private int getPageSize(Optional<Integer> size) {
         int pageSize;
         if (size.isPresent()) {
             pageSize = size.orElse(5);
@@ -82,7 +80,7 @@ public class TaskController {
         return pageSize;
     }
 
-    private int getCurrentPage(@RequestParam("page") Optional<Integer> page) {
+    private int getCurrentPage(Optional<Integer> page) {
         int currentPage;
         if (page.isPresent()) {
             currentPage = page.orElse(1);
