@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ERROR PAGE</title>
+    <div th:replace="header :: head"></div>
+</head>
+<body>
+<div th:insert="header :: myHeader"></div>
+<br>
+Sorry, that page does not exist
+
+<form action="#" th:action="@{/logoutForm}" method="get">
+    <input type="submit" class="btn btn-warning" value="Go back to login form">
+</form>
+<br>
+<form action="#" th:action="@{/}" method="get">
+    <input type="submit" class="btn btn-info" value="Go back todo-app">
+</form>
+</body>
+</html>

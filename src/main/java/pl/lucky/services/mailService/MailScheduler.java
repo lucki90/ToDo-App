@@ -42,7 +42,7 @@ public class MailScheduler {
 
     }
 
-    //sprawdza kiedy ma sie zaczac, o 7:00 dzisiaj czy jutro
+    //Check when start, today at 7:00 or tomorrow
     private void setStartOfScheduler() {
         LocalDateTime triggerTime = startOfApplication.truncatedTo(ChronoUnit.DAYS).plusHours(7);
 
