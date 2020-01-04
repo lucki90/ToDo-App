@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/loginForm").permitAll()
+                .defaultSuccessUrl("/todo-app/", true)
                 .and()
                 .logout().logoutUrl("/logoutForm").logoutSuccessUrl("/loginForm").permitAll();
     }

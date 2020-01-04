@@ -8,10 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.lucky.model.Task;
 import pl.lucky.services.TaskService;
@@ -21,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@RequestMapping("/todo-app")
 public class TaskController {
 
     private TaskService taskService;
@@ -43,7 +41,7 @@ public class TaskController {
         }
         taskService.save(task);
         addRedirectAttributes(redirectAttributes, pageable);
-        return "redirect:/";
+        return "redirect:/todo-app/";
     }
 
     @GetMapping("/")
@@ -74,7 +72,7 @@ public class TaskController {
                              @PageableDefault(size = 5, sort = "taskCreateTime", direction = Sort.Direction.DESC) Pageable pageable) {
         taskService.delete(id);
         addRedirectAttributes(redirectAttributes, pageable);
-        return "redirect:/";
+        return "redirect:/todo-app/";
     }
 
     private RedirectAttributes addRedirectAttributes(RedirectAttributes redirectAttributes, Pageable pageable) {

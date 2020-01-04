@@ -43,7 +43,7 @@
 <div th:insert="header :: myHeader"></div>
 <h1>Add task to do:</h1>
 <!-- 1 FORMULARZ DODAWANIA ZADANIA -->
-<form action="#" method="post" th:action="@{/}" th:object="${task}">
+<form action="#" method="post" th:action="@{/todo-app/}" th:object="${task}">
     <div style="width: 500px; display: inline-block">
         <input type="text" class="form-control" th:field="*{taskSubject}" placeholder="Subject"/>
     </div>
@@ -91,7 +91,7 @@
             <td th:text="*{task.taskCreateTime}"></td>
             <td th:text="*{task.taskDeadline}"></td>
             <td>
-                <form action="#" method="post" th:action="@{/delete/{id}(id=${task.id})}">
+                <form action="#" method="post" th:action="@{/todo-app/delete/{id}(id=${task.id})}">
                     <input type="submit" class="btn btn-danger" value="Delete">
                 </form>
             </td>
@@ -103,16 +103,16 @@
 <!-- using th:with to declare a local variable for sorting query param -->
 <div class="pagination-div" style="text-align: center !important;" th:with="sortParam=${sortProperty+','+(sortDesc?'desc':'asc')}">
     <span th:if="${taskPage.hasPrevious()}">
-        <a th:href="@{/(page=${taskPage.number-1},size=${taskPage.size},sort=${sortParam})}">Previous</a>
+        <a th:href="@{/todo-app/(page=${taskPage.number-1},size=${taskPage.size},sort=${sortParam})}">Previous</a>
     </span>
     <th:block th:each="i: ${#numbers.sequence(0, taskPage.totalPages - 1)}">
         <span th:if="${taskPage.number == i}" class="selected">[[${i}+1]]</span>
         <span th:unless="${taskPage.number == i}">
-             <a th:href="@{/(page=${i},size=${taskPage.size},sort=${sortParam})}">[[${i}+1]]</a>
+             <a th:href="@{/todo-app/(page=${i},size=${taskPage.size},sort=${sortParam})}">[[${i}+1]]</a>
         </span>
     </th:block>
     <span th:if="${taskPage.hasNext()}">
-        <a th:href="@{/(page=${taskPage.number+1},size=${taskPage.size},sort=${sortParam})}">Next</a>
+        <a th:href="@{/todo-app/(page=${taskPage.number+1},size=${taskPage.size},sort=${sortParam})}">Next</a>
     </span>
 </div>
 

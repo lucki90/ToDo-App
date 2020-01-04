@@ -12,6 +12,11 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
         return new ModelAndView("error");
     }
 
+    @RequestMapping(path = "/")
+    public ModelAndView showErrorForNoPath() {
+        return new ModelAndView("error");
+    }
+
     @Override
     public String getErrorPath() {
         return "/error";
