@@ -23,18 +23,16 @@
         <div >
             <input type="text" class="form-control" placeholder="Task details" th:field="*{taskDetails}">
         </div>
-
         <div style="display: inline-block">
                 <div class="form-group">
                     <div class='input-group date' id='datepicker'>
-                        <input th:field="*{taskDeadline}" style="width: 300px; border-radius: 5px;" type='text' id="date" name="date" placeholder="Task deadline" class="form-control" />
+                        <input th:field="*{taskDeadline}" type='date' id="date" name="date" />
                         <span class="input-group-addon"></span>
                     </div>
                 </div>
         </div>
         <div style="display: inline-block"><p class="alert-danger" th:errors="*{taskDeadline}"></p></div>
         <div/>
-        <p/>
 
         <input type="submit" class="btn btn-success" value="Save" style="float: left;">
     </form>
@@ -103,22 +101,6 @@
     <h1>There is no tasks yet :(</h1>
 </div>
 
-
-<script >
-    $(function () {
-        $('#datepicker').datepicker({
-            format: "dd/mm/yyyy",
-            autoclose: true,
-            todayHighlight: true,
-            showOtherMonths: true,
-            selectOtherMonths: true,
-            autoclose: true,
-            changeMonth: true,
-            changeYear: true,
-            orientation: "button"
-        });
-    });
-</script>
 <script th:inline="javascript">
     //thymeleaf to javascript variables
     /*<![CDATA[*/
