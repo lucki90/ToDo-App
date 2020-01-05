@@ -42,29 +42,37 @@
 <body>
 <div th:insert="header :: myHeader"></div>
 <h1>Add task to do:</h1>
-<!-- 1 FORMULARZ DODAWANIA ZADANIA -->
-<form action="#" method="post" th:action="@{/todo-app/}" th:object="${task}">
-    <div style="width: 500px; display: inline-block">
-        <input type="text" class="form-control" th:field="*{taskSubject}" placeholder="Subject"/>
-    </div>
-    <div style="display: inline-block"><p class="alert-danger" th:errors="*{taskSubject}"></p></div>
-    <div style="width: 500px">
-        <input type="text" class="form-control" placeholder="Task details" th:field="*{taskDetails}">
-    </div>
-    <div style="width: 200px; display: inline-block">
-        Task deadline: <input type="date" class="input-group date" th:field="*{taskDeadline}">
-    </div>
-    <div style="display: inline-block"><p class="alert-danger" th:errors="*{taskDeadline}"></p></div>
-    <div/>
-    <input type="submit" class="btn btn-success" value="Save">
-</form>
-<!-- 2 FORMULARZ DODAWANIA ZADANIA -->
-<!-- 1 FORMULARZ WYLOGOWANIA-->
-<form action="#" th:action="@{/logoutForm}" method="post">
-    <input type="submit" class="btn btn-danger" value="Log me out">
-</form>
-<!-- 2 FORMULARZ WYLOGOWANIA-->
+<div>
+    <!-- 1 FORMULARZ DODAWANIA ZADANIA -->
+    <form action="#" method="post" th:action="@{/todo-app/}" th:object="${task}">
+        <div style="display: inline-block">
+            <input type="text" class="form-control" th:field="*{taskSubject}" placeholder="Subject"/>
+        </div>
+        <div style="display: inline-block"><p class="alert-danger" th:errors="*{taskSubject}"></div>
 
+        <div >
+            <input type="text" class="form-control" placeholder="Task details" th:field="*{taskDetails}">
+        </div>
+
+        <div style="display: inline-block">
+
+            <input th:field="*{taskDeadline}" class="form-control" id="date" name="date" placeholder="Task deadline" type="date" />
+        </div>
+        <div style="display: inline-block"><p class="alert-danger" th:errors="*{taskDeadline}"></p></div>
+        <div/>
+        <p/>
+
+        <input type="submit" class="btn btn-success" value="Save" style="float: left;">
+    </form>
+
+    <!-- 2 FORMULARZ DODAWANIA ZADANIA -->
+    <!-- 1 FORMULARZ WYLOGOWANIA-->
+    <form action="#" th:action="@{/logoutForm}" method="post">
+        <input type="submit" class="btn btn-danger" value="Log me out" style="margin-left: 134px">
+    </form>
+    <!-- 2 FORMULARZ WYLOGOWANIA-->
+</div>
+</div>
 <br><br>
 
 <!--------------------------------------------------------------------------------------->
@@ -73,7 +81,7 @@
     <table id="task-table" class="table table-striped table-bordered table-hover table-condensed">
         <thead>
         <tr>
-            <th data-sort-prop="user.ownerLogin">Id</th>
+            <th data-sort-prop="user.ownerLogin">Login</th>
             <th data-sort-prop="taskSubject">Subject</th>
             <th data-sort-prop="taskDetails">Content</th>
             <th data-sort-prop="taskCreateTime">Create time</th>
@@ -120,6 +128,8 @@
 <div th:if="${taskPage.isEmpty()} and ${taskPage.totalPages < 1}">
     <h1>There is no tasks yet :(</h1>
 </div>
+
+
 
 </body>
 </html>

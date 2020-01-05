@@ -6,19 +6,23 @@
 </head>
 <body>
 <div th:insert="header :: myHeader"></div>
-<div th:insert="header :: navigationBar"></div>
 
-<h1>Please login</h1>
+<div id="container">
+    <h1 style="text-align: center">Please login</h1>
+    <form name="login_form" action="#" th:action="@{/loginForm}" method="post">
+        <div th:if="${param.error}" class="alert alert-danger" style="font-size: 18px;" role="alert">
+            Invalid username or password.
+        </div>
+        <input type="text" name="username" class="form-control" placeholder="username"/>
+        <input type="password" name="password" class="form-control" placeholder="password"/><br>
+        <input type="submit" class="btn btn-success" value="Login" style="float: left; padding-left: 20px; padding-right: 20px" />
+    </form>
+    <form action="#" th:action="@{/register}" method="get" style="float: right;" >
+        <input type="submit" class="btn btn-info" style="padding-left: 20px; padding-right: 20px;" value="Registration">
+    </form>
+</div>
 
-<form action="#" th:action="@{/loginForm}" method="post">
-    <input name="username" class="form-control" placeholder="username"/><br>
-    <input type="password" name="password" class="form-control" placeholder="password"/><br>
-    <input type="submit" class="btn btn-success" value="login"/>
-</form>
-<form action="#" th:action="@{/register}" method="get">
-    <h1>Registration Form</h1>
-    <input type="submit" class="btn btn-info" value="Go to registration!">
-</form>
+
 
 </body>
 </html>
