@@ -4,9 +4,11 @@
     <title>Todo-app</title>
     <div th:replace="header :: head"></div>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css"
+          rel="stylesheet" id="bootstrap-css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 
 </head>
 <body>
@@ -20,16 +22,16 @@
         </div>
         <div style="display: inline-block"><p class="alert-danger" th:errors="*{taskSubject}"></div>
 
-        <div >
+        <div>
             <input type="text" class="form-control" placeholder="Task details" th:field="*{taskDetails}">
         </div>
         <div style="display: inline-block">
-                <div class="form-group">
-                    <div class='input-group date' id='datepicker'>
-                        <input th:field="*{taskDeadline}" type='date' id="date" name="date" />
-                        <span class="input-group-addon"></span>
-                    </div>
+            <div class="form-group">
+                <div class='input-group date' id='datepicker'>
+                    <input th:field="*{taskDeadline}" type='date' id="date" name="date"/>
+                    <span class="input-group-addon"></span>
                 </div>
+            </div>
         </div>
         <div style="display: inline-block"><p class="alert-danger" th:errors="*{taskDeadline}"></p></div>
         <div/>
@@ -81,7 +83,8 @@
 </div>
 
 <!-- using th:with to declare a local variable for sorting query param -->
-<div class="pagination-div" style="text-align: center !important;" th:with="sortParam=${sortProperty+','+(sortDesc?'desc':'asc')}">
+<div class="pagination-div" style="text-align: center !important;"
+     th:with="sortParam=${sortProperty+','+(sortDesc?'desc':'asc')}">
     <span th:if="${taskPage.hasPrevious()}">
         <a th:href="@{/todo-app/(page=${taskPage.number-1},size=${taskPage.size},sort=${sortParam})}">Previous</a>
     </span>
@@ -110,25 +113,25 @@
     var pageSize =/*[[${taskPage.size}]]*/ 0;
     /*]]>*/
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         //show up/down arrows
-        $("table#task-table thead th").each(function(){
+        $("table#task-table thead th").each(function () {
             var head = $(this);
-            if(head.attr('data-sort-prop')==sortProperty){
-                head.append(sortDesc?'▾':'▴');
+            if (head.attr('data-sort-prop') == sortProperty) {
+                head.append(sortDesc ? '▾' : '▴');
             }
         });
 
         //set click action, reload page on clicking with all query params
-        $("table#task-table thead th").click(function() {
+        $("table#task-table thead th").click(function () {
             var headerSortPropName = $(this).attr("data-sort-prop");
-            if(headerSortPropName==sortProperty){
-                window.location.href = window.location.pathname+
-                    '?page='+currentPage+'&size='+pageSize+'&sort='+ headerSortPropName+','+
-                    (sortDesc?'asc':'desc');
-            }else{
-                window.location.href = window.location.pathname+
-                    '?page='+currentPage+'&size='+pageSize+'&sort='+ headerSortPropName+',asc';
+            if (headerSortPropName == sortProperty) {
+                window.location.href = window.location.pathname +
+                    '?page=' + currentPage + '&size=' + pageSize + '&sort=' + headerSortPropName + ',' +
+                    (sortDesc ? 'asc' : 'desc');
+            } else {
+                window.location.href = window.location.pathname +
+                    '?page=' + currentPage + '&size=' + pageSize + '&sort=' + headerSortPropName + ',asc';
             }
         });
     });

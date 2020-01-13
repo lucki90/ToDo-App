@@ -11,7 +11,7 @@ import pl.lucky.repository.UserRoleRepository;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 @Service
-public class UserService  {
+public class UserService {
 
     private static final String DEFAULT_ROLE = "ROLE_USER";
     private UserRepository userRepository;
@@ -34,7 +34,7 @@ public class UserService  {
         this.roleRepository = roleRepository;
     }
 
-    public void addWithDefaultRole(User user) throws SQLIntegrityConstraintViolationException{
+    public void addWithDefaultRole(User user) throws SQLIntegrityConstraintViolationException {
         UserRole defaultRole = roleRepository.findByRole(DEFAULT_ROLE);
         user.setRole(defaultRole);
         String passwordHash = passwordEncoder.encode(user.getPassword());

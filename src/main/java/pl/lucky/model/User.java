@@ -27,7 +27,7 @@ public class User {
     private String ownerLogin;
 
     @Column(name = "password")
-    @Length(min=3, max = 255, message = "{pl.lucky.model.length.password}")
+    @Length(min = 3, max = 255, message = "{pl.lucky.model.length.password}")
     @NotBlank(message = "{pl.lucky.model.NotEmpty}")
     private String password;
 
