@@ -8,8 +8,10 @@ import pl.lucky.model.UserRole;
 import pl.lucky.repository.UserRepository;
 import pl.lucky.repository.UserRoleRepository;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 @Service
-public class UserService {
+public class UserService  {
 
     private static final String DEFAULT_ROLE = "ROLE_USER";
     private UserRepository userRepository;
@@ -32,11 +34,15 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
-    public void addWithDefaultRole(User user) {
+    public void addWithDefaultRole(User user) throws SQLIntegrityConstraintViolationException{
         UserRole defaultRole = roleRepository.findByRole(DEFAULT_ROLE);
         user.setRole(defaultRole);
         String passwordHash = passwordEncoder.encode(user.getPassword());
         user.setPassword(passwordHash);
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+        } catch (Exception e) {
+            throw new SQLIntegrityConstraintViolationException(e);
+        }
     }
 }

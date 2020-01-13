@@ -7,17 +7,54 @@
 <body>
 <div th:insert="header :: myHeader"></div>
 <h1>Registration form</h1>
-
+<div>
 <form action="#" method="post" th:action="@{/register}" th:object="${user}">
-    <input type="text" th:field="*{firstName}" placeholder="First name" class="form-control"/>
-    <input type="text" th:field="*{lastName}" placeholder="Last name" class="form-control"/>
-    <input type="text" th:field="*{ownerLogin}" placeholder="Login" class="form-control"/>
-    <input type="text" th:field="*{password}" placeholder="Password" class="form-control"/>
-    <input type="text" th:field="*{email}" placeholder="Email address" class="form-control"/>
-    <input type="text" th:field="*{phoneNumber}" placeholder="Phone number" class="form-control"/>
-    <br>
-    <input type="submit" class="btn btn-success" value="Register"/>
-</form>
+    <div style="width: 300px; font-size: 18px;"><p class="alert alert-danger" th:errors="*{globalError}"></div>
+    <div style="display: inline-block">
+        <input type="text" th:field="*{firstName}" placeholder="First name" class="form-control"/>
+    </div>
+    <div style="display: inline-block"><p class="alert-danger" th:errors="*{firstName}"></div>
+    <div style="clear: both"></div>
 
+    <div style="display: inline-block">
+        <input type="text" th:field="*{lastName}" placeholder="Last name" class="form-control"/>
+    </div>
+    <div style="display: inline-block"><p class="alert-danger" th:errors="*{lastName}"></div>
+    <div style="clear: both"></div>
+
+    <div style="display: inline-block">
+        <input type="text" th:field="*{ownerLogin}" placeholder="Login" class="form-control"/>
+    </div>
+    <div style="display: inline-block"><p class="alert-danger" th:errors="*{ownerLogin}"></div>
+    <div style="clear: both"></div>
+
+    <div style="display: inline-block">
+        <input type="password" th:field="*{password}" placeholder="Password" class="form-control"/>
+    </div>
+    <div style="display: inline-block"><p class="alert-danger" th:errors="*{password}"></div>
+    <div style="clear: both"></div>
+
+    <div style="display: inline-block">
+        <input type="text" th:field="*{email}" placeholder="Email address" class="form-control"/>
+    </div>
+    <div style="display: inline-block"><p class="alert-danger" th:errors="*{email}"></div>
+    <div style="clear: both"></div>
+
+
+    <div style="display: inline-block">
+        <input type="text" th:field="*{phoneNumber}" placeholder="Phone number" class="form-control"/>
+    </div>
+    <div style="display: inline-block"><p class="alert-danger" th:errors="*{phoneNumber}"></div>
+    <div style="clear: both"></div>
+
+    <br>
+
+        <input type="submit" class="btn btn-success" value="Register" style="float: left;"/>
+
+</form>
+<form action="#" th:action="@{/logoutForm}" method="post">
+    <input type="submit" class="btn btn-warning" value="Go back to login form" style="margin-left: 10px">
+</form>
+</div>
 </body>
 </html>

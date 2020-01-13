@@ -23,7 +23,7 @@ public class Task {
     private Long id;
 
     @Column(name = "task_subject")
-    @NotEmpty(message = "{pl.lucky.model.Task.taskSubject.NotEmpty}")
+    @NotEmpty(message = "{pl.lucky.model.NotEmpty}")
     private String taskSubject;
 
     @Column(name = "task_details")
@@ -35,7 +35,7 @@ public class Task {
     @Column(name = "task_deadline")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @FutureOrPresent(message = "{pl.lucky.model.Task.taskDeadLine.FutureOrPresent}")
-    @NotNull(message = "{pl.lucky.model.Task.taskDeadLine.NotEmpty}")
+    @NotNull(message = "{pl.lucky.model.NotEmpty}")
     private LocalDate taskDeadline;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

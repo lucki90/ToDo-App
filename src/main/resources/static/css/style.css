@@ -2,7 +2,7 @@
 {
     width: 100%;
     padding: 10px 0;
-    background-color: #FF8C00;
+    background-color: #4285F4;
     text-align: center !important;
     border-bottom: 1px solid #751b1b;
     font-size: 48px;
@@ -10,10 +10,6 @@
 }
 
 body{
-    /*	========================================================
-     This pattern is downloaded from www.subtlepatterns.com
-     If you need more, that's where to get'em.
-     ========================================================*/
     font-size: 20px;
 }
 
