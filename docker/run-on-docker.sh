@@ -92,12 +92,12 @@ docker run -p 8080:8080 --name ${APP_CONTAINER_NAME} --link ${MYSQL_CONTAINER_NA
 echo "$(tput setaf 2)OK - todo-app is up.$(tput sgr0)"
 #======================================================================================#
 
-#============================ADD BASIC ROLES TO DB=====================================#
-for value in {1..20}
-do
-echo -n "."
-sleep 1s
-done
-docker exec mysql-standalone mysql --user="root" --password="root" --database="todo_app" --execute="INSERT INTO todo_app.user_role (role, description) VALUES ('ROLE_ADMIN', 'Access to all data'), ('ROLE_USER', 'Access to one user data');"
-#======================================================================================#
+##============================ADD BASIC ROLES TO DB=====================================#
+#for value in {1..20}
+#do
+#echo -n "."
+#sleep 1s
+#done
+#docker exec mysql-standalone mysql --user="root" --password="root" --database="todo_app" --execute="INSERT INTO todo_app.user_role (role, description) VALUES ('ROLE_ADMIN', 'Access to all data'), ('ROLE_USER', 'Access to one user data');"
+##======================================================================================#
 
